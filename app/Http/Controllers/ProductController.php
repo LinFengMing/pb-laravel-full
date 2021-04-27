@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('products.index');
     }
 
     /**
@@ -72,7 +72,19 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $products = $this->getProducts();;
+
+        $index = $id - 1;
+
+        if($index < 0 || $index >= count($products)) {
+            abort(404);
+        }
+
+        $product = $products[$index];
+
+        return view('product.edit', [
+            'product' => $product
+        ]);
     }
 
     /**
@@ -84,7 +96,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $products = $this->getProducts();;
+
+        $index = $id - 1;
+
+        if($index < 0 || $index >= count($products)) {
+            abort(404);
+        }
+
+        $product = $products[$index];
+
+        return redirect()->route('products.edit', ['product' => $product['id']]);
     }
 
     /**
@@ -95,7 +117,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return redirect()->route('products.index');
     }
 
     private function getProducts()
