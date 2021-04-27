@@ -1,0 +1,11 @@
+.card {
+  width: 400px;
+  border: 1px solid black;
+}
+.card .title {
+  font-size: 24px;
+  color: red;
+}
+.card .description {
+  color: lightgray;
+}
