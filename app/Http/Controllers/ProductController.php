@@ -125,10 +125,14 @@ class ProductController extends Controller
         return [
             [
                 'id' => 1,
+                'name' => 'Orange',
+                'price' => 30,
                 'imageUrl' => asset('images/orange.jpeg')
             ],
             [
                 'id' => 2,
+                'name' => 'Apple',
+                'price' => 20,
                 'imageUrl' => asset('images/apple.jpeg')
             ]
         ];
