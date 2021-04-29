@@ -3,7 +3,7 @@
 @section('content')
 
 <h1>Cart</h1>
-<form action="http://127.0.0.1:8000/cart/cookie" method="POST">
+<form action="{{ route('cart.cookie.update') }}" method="POST">
 @csrf
 @method('PATCH')
     <table border="1">
@@ -29,7 +29,7 @@
                         <input type="number" name="product_{{ $cartItem['product']['id'] }}" min="1" value="{{ $cartItem['quantity'] }}">
                     </td>
                     <td>
-                        <button type="button">delete</button>
+                        <button type="button" class="cartDeleteBtn" data-id="{{ $cartItem['product']['id'] }}">delete</button>
                     </td>
                 </tr>
             @endforeach
@@ -43,4 +43,8 @@
 
 @section('inline_js')
     @parent
+
+    <script>
+        initCartDeleteButton("{{ route('cart.cookie.delete') }}");
+    </script>
 @endsection

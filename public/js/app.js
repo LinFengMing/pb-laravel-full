@@ -32,6 +32,7 @@ window.render = {
   }
 };
 window.initAddToCart = _cart_js__WEBPACK_IMPORTED_MODULE_4__.initAddToCart;
+window.initCartDeleteButton = _cart_js__WEBPACK_IMPORTED_MODULE_4__.initCartDeleteButton;
 
 /***/ }),
 
@@ -43,7 +44,8 @@ window.initAddToCart = _cart_js__WEBPACK_IMPORTED_MODULE_4__.initAddToCart;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "initAddToCart": () => (/* binding */ initAddToCart)
+/* harmony export */   "initAddToCart": () => (/* binding */ initAddToCart),
+/* harmony export */   "initCartDeleteButton": () => (/* binding */ initCartDeleteButton)
 /* harmony export */ });
 function initCart() {
   return getCart();
@@ -89,6 +91,34 @@ function initAddToCart(productId) {
         addProductToCart(productId, quantityInput.value);
         alertProductQuantity(productId);
       }
+    });
+  }
+}
+
+function initCartDeleteButton(actionUrl) {
+  var cartDeleteBtns = document.querySelectorAll('.cartDeleteBtn');
+
+  for (var i = 0; i < cartDeleteBtns.length; i++) {
+    var cartDeleteBtn = cartDeleteBtns[i];
+    cartDeleteBtn.addEventListener('click', function (e) {
+      var btn = e.target;
+      var dataId = btn.getAttribute('data-id');
+      var formData = new FormData();
+      formData.append('_method', 'DELETE');
+      var csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+      var csrfToken = csrfTokenMeta.content;
+      formData.append('_token', csrfToken);
+      formData.append('id', dataId);
+      var request = new XMLHttpRequest();
+      request.open('POST', actionUrl);
+
+      request.onreadystatechange = function () {
+        if (request.readyState === XMLHttpRequest.DONE && request.status === 200 && request.responseText === 'success') {
+          window.location.reload();
+        }
+      };
+
+      request.send(formData);
     });
   }
 }

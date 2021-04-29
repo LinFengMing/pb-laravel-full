@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import Home from './home.jsx';
 import Page1 from './page1.jsx';
-import { initAddToCart } from './cart.js';
+import { initAddToCart, initCartDeleteButton } from './cart.js';
 
 window.render = {
     home: (containerTag, title) => {
@@ -20,3 +20,4 @@ window.render = {
 };
 
 window.initAddToCart = initAddToCart;
+window.initCartDeleteButton = initCartDeleteButton;

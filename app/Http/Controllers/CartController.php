@@ -167,4 +167,24 @@ class CartController extends Controller
 
         return redirect()->route('cart.index');
     }
+
+    public function deleteCookie(Request $request)
+    {
+        if($request->has('id')) {
+            $cart = $this->getCartFromCookie();
+            $productId = $request->input('id');
+
+            if(isset($cart[$productId])) {
+                unset($cart[$productId]);
+                $cartToJson = empty($cart) ? '{}' : json_encode($cart, true);
+                Cookie::queue(
+                    Cookie::make('cart', $cartToJson, 60 * 24 * 7, null, null, false, false)
+                );
+
+                return response('success');
+            }
+        }
+
+        return response('failed');
+    }
 }
