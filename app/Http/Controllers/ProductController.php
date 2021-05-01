@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    private $products;
+
+    public function __construct()
+    {
+        $this->middleware('check.token')->only('index');
+        $this->products = $this->getProducts();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,10 +21,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->getProducts();
+        // $products = $this->getProducts();
 
         return view('product.index', [
-            'products' => $products
+            'products' => $this->products
         ]);
     }
 
