@@ -10,7 +10,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check.token')->only('index');
+        // $this->middleware('check.token')->only('index');
         $this->products = $this->getProducts();
     }
 
@@ -46,6 +46,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'product_name' => 'required|unique:posts|max:255',
+        ]);
+
         return redirect()->route('products.index');
     }
 
