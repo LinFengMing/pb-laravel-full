@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Rules\ProductImageRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -51,11 +52,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'product_name' => 'required|string|max:255',
             'product_price' => 'required|integer|min:0|max:9999',
-            'product_image' => [
-                'required',
-                'string',
-                new ProductImageRule,
-            ],
+            'product_image' => 'required'
         ], [
             'required' => 'The :attribute field is required!.'
         ])->validate();
@@ -75,6 +72,8 @@ class ProductController extends Controller
         //         new ProductImageRule,
         //     ]
         // ]);
+
+        $path = $request->file('product_image')->store('public/images');
 
         return redirect()->route('products.index');
     }

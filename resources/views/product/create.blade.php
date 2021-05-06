@@ -1,4 +1,4 @@
-<form action="{{ route('products.store') }}" method="post">
+<form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div>
         <label for="">
@@ -14,7 +14,7 @@
     <br>
     <div>
         <label for="">
-            Product Image: <input type="text" name="product_image" value="{{ old('product_name') }}">
+            Product Image: <input type="file" name="product_image">
         </label>
     </div>
     <br>
